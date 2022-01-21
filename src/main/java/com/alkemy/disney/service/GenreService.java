@@ -1,13 +1,10 @@
 package com.alkemy.disney.service;
 
 import com.alkemy.disney.dto.GenreDTO;
-import org.springframework.stereotype.Service;
 
-@Service
-public class GenreService {
+import java.util.List;
 
-    public GenreDTO save(GenreDTO dto) {
-
-        return dto;
-    }
+public interface GenreService {
+    GenreDTO save(GenreDTO dto);
+    List<GenreDTO> getAllGenres();
 }
