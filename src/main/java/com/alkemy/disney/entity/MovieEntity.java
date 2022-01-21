@@ -10,32 +10,32 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "pelicula")
+@Table(name = "movie")
 @Getter
 @Setter
-public class PeliculaEntity {
+public class MovieEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String imagen;
+    private String image;
 
-    private String titulo;
+    private String title;
 
-    @Column(name = "fecha_creacion")
+    @Column(name = "creation_date")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
-    private LocalDate fechaCreacion;
+    private LocalDate creationDate;
 
 
-    private int calificacion;
+    private int score;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "genero_id", insertable = false, updatable = false)
-    private GeneroEntity genero;
+    @JoinColumn(name = "genre_id", insertable = false, updatable = false)
+    private GenreEntity genre;
 
-    @Column(name = "genero_id", nullable = false)
-    private Long generoId;
+    @Column(name = "genre_id", nullable = false)
+    private Long genreId;
 
     @ManyToMany(
             cascade = {
@@ -43,17 +43,17 @@ public class PeliculaEntity {
                     CascadeType.MERGE
             })
     @JoinTable(
-            name= "personaje_pelicula",
-            joinColumns = @JoinColumn(name = "pelicula_id"),
-            inverseJoinColumns = @JoinColumn(name = "personaje_id")
+            name= "character_movie",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "character_id")
     )
-    private Set<PersonajeEntity> personajes = new HashSet<>();
+    private Set<CharacterEntity> characters = new HashSet<>();
 
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
         if(getClass()!= obj.getClass()) return false;
-        final PeliculaEntity OTHER = (PeliculaEntity) obj;
+        final MovieEntity OTHER = (MovieEntity) obj;
         return OTHER.id == this.id;
     }
 }
